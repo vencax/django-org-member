@@ -1,0 +1,5 @@
+include LICENSE
+include README
+recursive-include org_member/static *
+recursive-include org_member/templates *
+recursive-include org_member/locale *
