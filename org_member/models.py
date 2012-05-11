@@ -21,7 +21,7 @@ class OrgMember(models.Model):
         verbose_name_plural = _('members')
 
     def __unicode__(self):
-        return _('Member %s') % self.user
+        return '%s %s' % (_('member') % self.user)
 
     user = models.OneToOneField(User)
     desc = models.TextField(_('desc'), max_length=512, null=True, blank=True)
