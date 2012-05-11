@@ -22,8 +22,8 @@ def on_user_become_member(instance, **kwargs):
     
     mail = render_to_string('org_member/new_member_welcome.html', {
          'user' : instance,
-         'accountnum' : settings.ORG_ACCOUNT_NUMBER,
-         'fee' : settings.ORG_FEES[instance.typee],
+         'accountnum' : settings.ORG_MEMBER_ACCOUNT_NUMBER,
+         'fee' : settings.ORG_MEMBER_FEES[instance.typee],
          'site' : Site.objects.get_current()
     })
     send_mail(_('Welcome'), mail, 

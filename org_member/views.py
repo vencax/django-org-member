@@ -7,7 +7,6 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User, Group
 from django.views.generic.base import View
 from django.conf import settings
-from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import get_object_or_404
 from django.core.urlresolvers import reverse
 from django.template.loader import render_to_string
@@ -25,12 +24,11 @@ class MembershipRequestView(View):
     def get(self, request, *args, **kwargs):
         me = request.user
         try:
-            members = Group.objects.get(name=settings.DEFAULT_MEMBER_GROUP)
+            members = Group.objects.get(name=settings.ORG_MEMBER_DEFAULT_MEMBER_GROUP)
+            me.groups.add(members)
+            me.save()
         except Group.DoesNotExist:
-            raise ImproperlyConfigured('You must create membership group called %s' % \
-                            settings.DEFAULT_MEMBER_GROUP)
-        me.groups.add(members)
-        me.save()
+            pass        
         
         if not _user_is_member(request):
             memberinfo = OrgMember(user=request.user)

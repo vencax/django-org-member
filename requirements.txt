@@ -1,3 +1,2 @@
 django>=1.4,
-south,
-feincms-groupagenda,
+git+git://github.com/vencax/feincms-groupagenda.git,
