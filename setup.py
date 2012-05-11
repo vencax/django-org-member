@@ -22,7 +22,7 @@ setup(name='django-org-member',
     install_requires=[
         'django>=1.4',
         'south',
-        'feincms-groupagenda',
+        'git+git://github.com/vencax/feincms-groupagenda.git',
     ],
     keywords="django organisation management crm",
     include_package_data=True,

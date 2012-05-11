@@ -1,13 +1,14 @@
 
 from django.contrib.auth.decorators import login_required
 from django.conf.urls import patterns, url
-from django.contrib.auth.views import logout
-from .views import UserUpdateView, LoginView
+from .views import MembershipRequestView, MemberDetailView, MemberInfoUpdateView
 
 
 urlpatterns = patterns('',
-    url(r'^update/(?P<pk>[0-9]+)/$', login_required(UserUpdateView.as_view()), 
-        name='update_profile'),
-    url(r'^login/$', LoginView.as_view(), name='auth_login'),
-    url(r'^logout/$', logout, {'next_page' : '/'}, name='auth_logout'),
+    url(r'^membership_request/$', login_required(MembershipRequestView.as_view()), 
+        name='membership_request'),
+    url(r'^member_detail/(?P<user>\w+)/$', MemberDetailView.as_view(), 
+        name='member_detail'),
+    url(r'^member_info_update/(?P<pk>[0-9]+)/$', login_required(MemberInfoUpdateView.as_view()), 
+        name='member_info_update'),
 )
