@@ -12,11 +12,14 @@ from org_member.models import OrgMember
 import unicodedata
 from django.db.transaction import commit_on_success
 
+from .unicode_csv_reader import unicode_csv_reader
+
 def make_username_string(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
     uname = u''.join([c for c in nkfd_form if not unicodedata.combining(c)])
     uname = uname.replace(' ', '')
     return uname.lower()
+
 
 class Command(BaseCommand):
     """
@@ -28,17 +31,18 @@ class Command(BaseCommand):
     
     def handle(self, *args, **options):
         logging.basicConfig(level=logging.INFO)
-        spamReader = csv.reader(open(args[0], 'rb'), delimiter=',')
-        try:
-            headers = None
-            for row in spamReader:
+        logging.info('Ensure you process utf-8 encoded file ...')
+        reader = csv.reader(open(args[0], 'rb'), delimiter=',')
+        
+        headers = None
+        for row in reader:
+            try:
                 if headers:
                     self.process_row(row, headers)
                 else:
                     headers = self.readHeaders(row)
-        except Exception, e:
-            logging.error('Maybe UTF-16 file?? Convert to utf-8...')
-            logging.exception(e)
+            except Exception, e:
+                logging.exception(e)
             
     @commit_on_success
     def process_row(self, row, headers):
