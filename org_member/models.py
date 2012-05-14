@@ -5,10 +5,7 @@ from django.db.models.fields.related import ManyToManyField
 from social_auth.backends.google import GoogleBackend
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.db.models.signals import post_save
 from groupagenda.models import Event
-
-from .signals import on_user_become_member
 
 MEMBERSHIP_TYPE_CHOICES = (
     (1, _('person')),
@@ -24,7 +21,7 @@ class OrgMember(models.Model):
         return '%s %s' % (ugettext('member'), self.user)
 
     user = models.OneToOneField(User)
-    desc = models.TextField(_('desc'), max_length=512, null=True, blank=True)
+    desc = models.TextField(_('desc'), max_length=1024, null=True, blank=True)
     place = models.CharField(_('place'), max_length=32, null=True, blank=True)
     typee = models.IntegerField(_('mebership type'), 
                                 choices=MEMBERSHIP_TYPE_CHOICES, default=1)
@@ -35,9 +32,6 @@ class OrgMember(models.Model):
     
     def first_name(self): return self.user.first_name
     def last_name(self): return self.user.last_name
-    
-post_save.connect(on_user_become_member, sender=OrgMember, 
-                  dispatch_uid='orgmember_post_save')
 
 # -----------------------------------------------------------------------------
     
