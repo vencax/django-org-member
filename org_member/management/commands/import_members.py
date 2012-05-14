@@ -12,8 +12,6 @@ from org_member.models import OrgMember
 import unicodedata
 from django.db.transaction import commit_on_success
 
-from .unicode_csv_reader import unicode_csv_reader
-
 def make_username_string(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
     uname = u''.join([c for c in nkfd_form if not unicodedata.combining(c)])

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-11 09:51+0200\n"
+"POT-Creation-Date: 2012-05-14 17:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,43 +17,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 
-#: models.py:14
+#: models.py:11
 msgid "person"
 msgstr "jednotlivec"
 
-#: models.py:15
+#: models.py:12
 msgid "company"
 msgstr "firma"
 
-#: models.py:20 models.py:24
+#: models.py:17 models.py:21
 msgid "member"
 msgstr "člen"
 
-#: models.py:21
+#: models.py:18
 msgid "members"
 msgstr "členové"
 
-#: models.py:27
+#: models.py:24
 msgid "desc"
 msgstr "popis"
 
-#: models.py:28
+#: models.py:25
 msgid "place"
 msgstr "adresa"
 
-#: models.py:29
+#: models.py:26
 msgid "mebership type"
 msgstr "typ členství"
 
-#: models.py:31
+#: models.py:28
 msgid "member since"
 msgstr "člen od"
 
-#: models.py:32
+#: models.py:29
 msgid "phone number"
 msgstr "telefon"
 
-#: models.py:48
+#: models.py:30
+msgid "photo"
+msgstr "fotka"
+
+#: models.py:35
+msgid "first name"
+msgstr ""
+
+#: models.py:37
+msgid "last name"
+msgstr ""
+
+#: models.py:45
+msgid "fees payment"
+msgstr "zaplacené poplatky"
+
+#: models.py:46
+msgid "fees payments"
+msgstr "zaplacené poplatky"
+
+#: models.py:49
 msgid "year"
 msgstr "rok"
 
@@ -61,13 +81,13 @@ msgstr "rok"
 msgid "Welcome"
 msgstr "Vítej"
 
-#: views.py:55 templates/org_member/update_info.html:4
+#: views.py:61 templates/org_member/update_info.html:4
 #: templates/org_member/update_info.html:7
 #: templates/org_member/update_info.html:11
 msgid "update membership info"
 msgstr "upravit členské informace"
 
-#: views.py:58
+#: views.py:64
 msgid "request for membership"
 msgstr "požádat o členství"
 
@@ -83,10 +103,11 @@ msgid ""
 "Please stay tuned on our website www.%(site)s \n"
 "\n"
 "your %(site)s team.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "díky že jste projevil zájem se stát členem %(site)s.\n"
 "Pro pořádek prosím uhraďte symbolický členský poplatek %(fee)s na účet "
 "%(accountnum)s pod variabilním symbolem %(symbol)s.\n"
-"My se naoplátku budeme snažit Vám nabídnout různé akce, diskuse atd."
-" Sledujete náš web www.%(site)s, kde najdete všechny informace.\n"
+"My se naoplátku budeme snažit Vám nabídnout různé akce, diskuse atd. "
+"Sledujete náš web www.%(site)s, kde najdete všechny informace.\n"
 "váš %(site)s tým.\n"

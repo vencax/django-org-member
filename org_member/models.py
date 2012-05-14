@@ -27,17 +27,24 @@ class OrgMember(models.Model):
                                 choices=MEMBERSHIP_TYPE_CHOICES, default=1)
     joined = models.DateField(_('member since'), auto_now_add=True)
     tel = models.IntegerField(_('phone number'), null=True, blank=True)
-    photo = models.ImageField(upload_to='OrgMemberPictures', null=True, blank=True)
+    photo = models.ImageField(_('photo'), upload_to='OrgMemberPictures', 
+                              null=True, blank=True)
     event_attendance = ManyToManyField(Event, null=True, blank=True)
     
     def first_name(self): return self.user.first_name
-    def last_name(self): return self.user.last_name
+    first_name.short_description = _('first name')
+    def last_name(self): return self.user.last_name.upper()
+    last_name.short_description = _('last name')
 
 # -----------------------------------------------------------------------------
     
 YEAR_CHOICES = [(y, str(y)) for y in range(2000, 2050)]
     
 class FeesPayment(models.Model):
+    class Meta:
+        verbose_name = _('fees payment')
+        verbose_name_plural = _('fees payments')
+        
     user = models.ForeignKey(OrgMember)
     year = models.IntegerField(_('year'), choices=YEAR_CHOICES, default=2012)
 

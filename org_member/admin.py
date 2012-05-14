@@ -10,6 +10,7 @@ class FeesPaymentInline(TabularInline):
 
 class OrgMemberAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'joined', 'tel', 'typee', 'photo')
+    list_display_links = ('first_name', 'last_name')
     list_filter = ('typee', )
     search_fields = ('user__last_name', 'user__first_name', 'user__email')
     ordering = ('user', )
