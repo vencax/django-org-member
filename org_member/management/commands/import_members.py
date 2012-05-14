@@ -16,7 +16,7 @@ def make_username_string(input_str):
     nkfd_form = unicodedata.normalize('NFKD', unicode(input_str))
     uname = u''.join([c for c in nkfd_form if not unicodedata.combining(c)])
     uname = uname.replace(' ', '')
-    return uname
+    return uname.lower()
 
 class Command(BaseCommand):
     """
@@ -27,7 +27,7 @@ class Command(BaseCommand):
     help = 'Makes a new meal timetable for next N days'
     
     def handle(self, *args, **options):
-        logging.info('-----------------Startup-----------------')
+        logging.basicConfig(level=logging.INFO)
         spamReader = csv.reader(open(args[0], 'rb'), delimiter=',')
         try:
             headers = None
@@ -43,15 +43,25 @@ class Command(BaseCommand):
     @commit_on_success
     def process_row(self, row, headers):
         username = self._extractVal('Nickname', row, headers).lower() or \
-            make_username_string(self._extractVal('Family Name', row, headers))
-        if User.objects.filter(username__exact=username).exists():
+            make_username_string(self._extractVal('Family Name', row, headers)) or \
+            make_username_string(self._extractVal('Given Name', row, headers))
+            
+        if not username:
             return
-        u = User(username=username,
-                 first_name=self._extractVal('Given Name', row, headers),
-                 last_name=self._extractVal('Family Name', row, headers),
-                 email=self._extractVal('E-mail 1 - Value', row, headers))
-        u.save()
         
+        logging.info('Processing: %s' % username)
+        
+        try:
+            u = User.objects.get(username=username)
+        except User.DoesNotExist:
+            u = User(username=username,
+                     first_name=self._extractVal('Given Name', row, headers),
+                     last_name=self._extractVal('Family Name', row, headers),
+                     email=self._extractVal('E-mail 1 - Value', row, headers))
+            u.save()
+        
+        if OrgMember.objects.filter(user__exact=u).exists():
+            return
         phone = self._extractVal('Phone 1 - Value', row, headers) or None
         member = OrgMember(user=u,
                            desc=self._extractVal('Notes', row, headers),
