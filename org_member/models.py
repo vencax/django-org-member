@@ -21,7 +21,7 @@ class OrgMember(models.Model):
         return '%s %s' % (ugettext('member'), self.user)
 
     user = models.OneToOneField(User)
-    desc = models.TextField(_('desc'), max_length=1024, null=True, blank=True)
+    desc = models.TextField(_('desc'), max_length=512, null=True, blank=True)
     place = models.CharField(_('place'), max_length=32, null=True, blank=True)
     typee = models.IntegerField(_('mebership type'), 
                                 choices=MEMBERSHIP_TYPE_CHOICES, default=1)

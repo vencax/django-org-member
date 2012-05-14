@@ -64,7 +64,7 @@ class Command(BaseCommand):
             return
         phone = self._extractVal('Phone 1 - Value', row, headers) or None
         member = OrgMember(user=u,
-                           desc=self._extractVal('Notes', row, headers),
+                           desc=self._extractVal('Notes', row, headers)[:512],
                            place=self._extractVal('Address 1 - Formatted', row, headers),
                            typee=1,
                            tel=phone)
