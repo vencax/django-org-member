@@ -26,9 +26,10 @@ class MembershipRequestView(View):
         try:
             members = Group.objects.get(name=settings.ORG_MEMBER_DEFAULT_MEMBER_GROUP)
             me.groups.add(members)
+            me.is_staff = True
             me.save()
         except Group.DoesNotExist:
-            pass        
+            pass
         
         if not _user_is_member(request):
             memberinfo = OrgMember(user=request.user)
